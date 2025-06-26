@@ -55,74 +55,82 @@
   <div class="response" id="response"></div>
 
   <script>
-    const endpoint = "http://127.0.0.1:8080/function";
+const endpoint = "http://127.0.0.1:8080/function";
 
-    const showResponse = (data) => {
-      document.getElementById("response").textContent = JSON.stringify(data, null, 2);
-    }
+const showResponse = (data) => {
+  const display = typeof data === "object" ? JSON.stringify(data, null, 2) : data;
+  document.getElementById("response").textContent = display;
+};
 
-    // Créer un compte
-    document.getElementById('register-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const username = document.getElementById('reg-username').value;
-      const password = document.getElementById('reg-password').value;
-      const res = await fetch(`${endpoint}/create-account-secure`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-      });
-      const data = await res.json(); showResponse(data);
-    });
+// Créer un compte
+document.getElementById('register-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const username = document.getElementById('reg-username').value;
+  const password = document.getElementById('reg-password').value;
+  const res = await fetch(`${endpoint}/create-account-secure`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, password })
+  });
+  const data = await res.text();
+  showResponse(data);
+});
 
-    // Connexion
-    document.getElementById('login-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const username = document.getElementById('login-username').value;
-      const password = document.getElementById('login-password').value;
-      const res = await fetch(`${endpoint}/authenticate-user`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-      });
-      const data = await res.json(); showResponse(data);
-    });
+// Connexion
+document.getElementById('login-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const username = document.getElementById('login-username').value;
+  const password = document.getElementById('login-password').value;
+  const res = await fetch(`${endpoint}/authenticate-user`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, password })
+  });
+  const data = await res.text();
+  showResponse(data);
+});
 
-    // Générer secret TOTP
-    document.getElementById('totp-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const username = document.getElementById('totp-username').value;
-      const res = await fetch(`${endpoint}/generate-2fa-secret`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username })
-      });
-      const data = await res.json(); showResponse(data);
-    });
+// Générer secret TOTP
+document.getElementById('totp-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const username = document.getElementById('totp-username').value;
+  const res = await fetch(`${endpoint}/generate-2fa-secret`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username })
+  });
+  const data = await res.text();
+  showResponse(data);
+});
 
-    // Vérifier TOTP
-    document.getElementById('verify-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const username = document.getElementById('verify-username').value;
-      const code = document.getElementById('verify-code').value;
-      const res = await fetch(`${endpoint}/verify-2fa`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, code })
-      });
-      const data = await res.json(); showResponse(data);
-    });
+// Vérifier TOTP
+document.getElementById('verify-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const username = document.getElementById('verify-username').value;
+  const code = document.getElementById('verify-code').value;
+  const res = await fetch(`${endpoint}/verify-2fa`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, code })
+  });
+  const data = await res.text();
+  showResponse(data);
+});
 
-    // Renouveler
-    document.getElementById('renew-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const username = document.getElementById('renew-username').value;
-      const res = await fetch(`${endpoint}/renew-credentials`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username })
-      });
-      const data = await res.json(); showResponse(data);
-    });
+// Renouveler identifiants
+document.getElementById('renew-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const username = document.getElementById('renew-username').value;
+  const res = await fetch(`${endpoint}/renew-credentials`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username })
+  });
+  const data = await res.text();
+  showResponse(data);
+});
+
+
   </script>
 </body>
 </html>
