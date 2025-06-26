@@ -2,135 +2,65 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Frontend OpenFaaS - Test</title>
-  <style>
-    body { font-family: Arial; max-width: 800px; margin: auto; padding: 20px; }
-    form { margin-bottom: 30px; background: #f2f2f2; padding: 15px; border-radius: 8px; }
-    input, button { margin: 5px 0; padding: 8px; width: 100%; }
-    .response { background: #eaeaea; padding: 10px; border-radius: 5px; white-space: pre-wrap; }
-  </style>
+  <title>Frontend OpenFaaS</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Frontend magique - OpenFaaS</h1>
 
-  <!-- ✅ Créer un compte -->
-  <h2>Créer un compte</h2>
-  <form id="register-form">
-    <input type="text" id="reg-username" placeholder="Nom d'utilisateur" required>
-    <input type="password" id="reg-password" placeholder="Mot de passe" required>
-    <button type="submit">Créer le compte</button>
-  </form>
+  <h1>🔐 Portail Utilisateur – MSPR2</h1>
 
-  <!-- ✅ Connexion -->
-  <h2>Connexion</h2>
-  <form id="login-form">
-    <input type="text" id="login-username" placeholder="Nom d'utilisateur" required>
-    <input type="password" id="login-password" placeholder="Mot de passe" required>
-    <button type="submit">Se connecter</button>
-  </form>
+  <section>
+    <h2>Créer un compte</h2>
+    <form id="register-form">
+      <input type="text" id="reg-username" placeholder="Nom d'utilisateur" required>
+      <input type="password" id="reg-password" placeholder="Mot de passe" required>
+      <button type="submit">Créer</button>
+    </form>
+  </section>
 
-  <!-- ✅ Génération secret TOTP -->
-  <h2>Générer un secret TOTP</h2>
-  <form id="totp-form">
-    <input type="text" id="totp-username" placeholder="Nom d'utilisateur" required>
-    <button type="submit">Générer le secret</button>
-  </form>
+  <section>
+    <h2>Connexion</h2>
+    <form id="login-form">
+      <input type="text" id="login-username" placeholder="Nom d'utilisateur" required>
+      <input type="password" id="login-password" placeholder="Mot de passe" required>
+      <button type="submit">Se connecter</button>
+    </form>
+  </section>
 
-  <!-- ✅ Vérifier TOTP -->
-  <h2>Vérifier un code TOTP</h2>
-  <form id="verify-form">
-    <input type="text" id="verify-username" placeholder="Nom d'utilisateur" required>
-    <input type="text" id="verify-code" placeholder="Code TOTP" required>
-    <button type="submit">Vérifier le code</button>
-  </form>
+  <section>
+    <h2>Générer secret TOTP</h2>
+    <form id="totp-form">
+      <input type="text" id="totp-username" placeholder="Nom d'utilisateur" required>
+      <button type="submit">Générer</button>
+    </form>
+  </section>
 
-  <!-- ✅ Renouveler credentials -->
-  <h2>Renouveler mot de passe / secret</h2>
-  <form id="renew-form">
-    <input type="text" id="renew-username" placeholder="Nom d'utilisateur" required>
-    <button type="submit">Renouveler</button>
-  </form>
+  <section>
+    <h2>Vérifier code TOTP</h2>
+    <form id="verify-form">
+      <input type="text" id="verify-username" placeholder="Nom d'utilisateur" required>
+      <input type="text" id="verify-code" placeholder="Code TOTP" required>
+      <button type="submit">Vérifier</button>
+    </form>
+  </section>
 
-  <h3>🧾 Réponse :</h3>
+  <section>
+    <h2>Renouveler mot de passe ou secret</h2>
+    <form id="renew-form">
+      <input type="text" id="renew-username" placeholder="Nom d'utilisateur" required>
+      <button type="submit">Renouveler</button>
+    </form>
+  </section>
 
- <pre class="response" id="response"></pre>
-  <script>
-const endpoint = "http://127.0.0.1:8080/function";
+  <section>
+    <h3>🧾 Réponse :</h3>
+    <pre id="response"></pre>
+  </section>
 
-const showResponse = (data) => {
-  const display = typeof data === "object" ? JSON.stringify(data, null, 2) : data;
-  document.getElementById("response").textContent = display;
-};
-
-// Créer un compte
-document.getElementById('register-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const username = document.getElementById('reg-username').value;
-  const password = document.getElementById('reg-password').value;
-  const res = await fetch(`${endpoint}/create-account-secure`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, password })
-  });
-  const data = await res.text();
-  showResponse(data);
-});
-
-// Connexion
-document.getElementById('login-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const username = document.getElementById('login-username').value;
-  const password = document.getElementById('login-password').value;
-  const res = await fetch(`${endpoint}/authenticate-user`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, password })
-  });
-  const data = await res.text();
-  showResponse(data);
-});
-
-// Générer secret TOTP
-document.getElementById('totp-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const username = document.getElementById('totp-username').value;
-  const res = await fetch(`${endpoint}/generate-2fa-secret`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username })
-  });
-  const data = await res.text();
-  showResponse(data);
-});
-
-// Vérifier TOTP
-document.getElementById('verify-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const username = document.getElementById('verify-username').value;
-  const code = document.getElementById('verify-code').value;
-  const res = await fetch(`${endpoint}/verify-2fa`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, code })
-  });
-  const data = await res.text();
-  showResponse(data);
-});
-
-// Renouveler identifiants
-document.getElementById('renew-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const username = document.getElementById('renew-username').value;
-  const res = await fetch(`${endpoint}/renew-credentials`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username })
-  });
-  const data = await res.text();
-  showResponse(data);
-});
-
-
-  </script>
+  <script src="config.js"></script>
+  <script src="register.js"></script>
+  <script src="login.js"></script>
+  <script src="totp.js"></script>
+  <script src="renew.js"></script>
 </body>
 </html>
