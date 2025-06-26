@@ -1,0 +1,27 @@
+body {
+  font-family: sans-serif;
+  margin: 2rem;
+  background-color: #f8f9fa;
+}
+h1 {
+  color: #1b1b1b;
+}
+form {
+  margin-bottom: 2rem;
+}
+input {
+  display: block;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  width: 300px;
+}
+button {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+pre {
+  background-color: #eee;
+  padding: 1rem;
+  white-space: pre-wrap;
+  border-radius: 4px;
+}
