@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Frontend Magique Simple</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input, button { margin: 5px 0; padding: 8px; }
+    .response { margin-top: 15px; white-space: pre-wrap; background: #f0f0f0; padding: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Créer un compte utilisateur</h1>
+
+  <form id="register-form">
+    <input type="text" id="username" placeholder="Nom d'utilisateur" required /><br>
+    <input type="password" id="password" placeholder="Mot de passe" required /><br>
+    <button type="submit">Créer le compte</button>
+  </form>
+
+  <div class="response" id="response"></div>
+
+  <script>
+    document.getElementById('register-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      const res = await fetch('http://127.0.0.1:8080/function/create-account-secure', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+
+      const data = await res.json();
+      document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+    });
+  </script>
+</body>
+</html>
