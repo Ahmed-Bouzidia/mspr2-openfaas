@@ -1,40 +1,127 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <title>Frontend Magique Simple</title>
+  <meta charset="UTF-8">
+  <title>Frontend OpenFaaS - Test</title>
   <style>
-    body { font-family: Arial; padding: 20px; }
-    input, button { margin: 5px 0; padding: 8px; }
-    .response { margin-top: 15px; white-space: pre-wrap; background: #f0f0f0; padding: 10px; }
+    body { font-family: Arial; max-width: 800px; margin: auto; padding: 20px; }
+    form { margin-bottom: 30px; background: #f2f2f2; padding: 15px; border-radius: 8px; }
+    input, button { margin: 5px 0; padding: 8px; width: 100%; }
+    .response { background: #eaeaea; padding: 10px; border-radius: 5px; white-space: pre-wrap; }
   </style>
 </head>
 <body>
-  <h1>Créer un compte utilisateur</h1>
+  <h1>Frontend magique - OpenFaaS</h1>
 
+  <!-- ✅ Créer un compte -->
+  <h2>Créer un compte</h2>
   <form id="register-form">
-    <input type="text" id="username" placeholder="Nom d'utilisateur" required /><br>
-    <input type="password" id="password" placeholder="Mot de passe" required /><br>
+    <input type="text" id="reg-username" placeholder="Nom d'utilisateur" required>
+    <input type="password" id="reg-password" placeholder="Mot de passe" required>
     <button type="submit">Créer le compte</button>
   </form>
 
+  <!-- ✅ Connexion -->
+  <h2>Connexion</h2>
+  <form id="login-form">
+    <input type="text" id="login-username" placeholder="Nom d'utilisateur" required>
+    <input type="password" id="login-password" placeholder="Mot de passe" required>
+    <button type="submit">Se connecter</button>
+  </form>
+
+  <!-- ✅ Génération secret TOTP -->
+  <h2>Générer un secret TOTP</h2>
+  <form id="totp-form">
+    <input type="text" id="totp-username" placeholder="Nom d'utilisateur" required>
+    <button type="submit">Générer le secret</button>
+  </form>
+
+  <!-- ✅ Vérifier TOTP -->
+  <h2>Vérifier un code TOTP</h2>
+  <form id="verify-form">
+    <input type="text" id="verify-username" placeholder="Nom d'utilisateur" required>
+    <input type="text" id="verify-code" placeholder="Code TOTP" required>
+    <button type="submit">Vérifier le code</button>
+  </form>
+
+  <!-- ✅ Renouveler credentials -->
+  <h2>Renouveler mot de passe / secret</h2>
+  <form id="renew-form">
+    <input type="text" id="renew-username" placeholder="Nom d'utilisateur" required>
+    <button type="submit">Renouveler</button>
+  </form>
+
+  <h3>🧾 Réponse :</h3>
   <div class="response" id="response"></div>
 
   <script>
-    document.getElementById('register-form').addEventListener('submit', async function (e) {
+    const endpoint = "http://127.0.0.1:8080/function";
+
+    const showResponse = (data) => {
+      document.getElementById("response").textContent = JSON.stringify(data, null, 2);
+    }
+
+    // Créer un compte
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
       e.preventDefault();
-
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-
-      const res = await fetch('http://127.0.0.1:8080/function/create-account-secure', {
+      const username = document.getElementById('reg-username').value;
+      const password = document.getElementById('reg-password').value;
+      const res = await fetch(`${endpoint}/create-account-secure`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
       });
+      const data = await res.json(); showResponse(data);
+    });
 
-      const data = await res.json();
-      document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+    // Connexion
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('login-username').value;
+      const password = document.getElementById('login-password').value;
+      const res = await fetch(`${endpoint}/authenticate-user`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+      const data = await res.json(); showResponse(data);
+    });
+
+    // Générer secret TOTP
+    document.getElementById('totp-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('totp-username').value;
+      const res = await fetch(`${endpoint}/generate-2fa-secret`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username })
+      });
+      const data = await res.json(); showResponse(data);
+    });
+
+    // Vérifier TOTP
+    document.getElementById('verify-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('verify-username').value;
+      const code = document.getElementById('verify-code').value;
+      const res = await fetch(`${endpoint}/verify-2fa`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, code })
+      });
+      const data = await res.json(); showResponse(data);
+    });
+
+    // Renouveler
+    document.getElementById('renew-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('renew-username').value;
+      const res = await fetch(`${endpoint}/renew-credentials`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username })
+      });
+      const data = await res.json(); showResponse(data);
     });
   </script>
 </body>
