@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # MSPR2 - OpenFaaS Serverless Project
 
 Ce projet met en œuvre plusieurs fonctions **serverless** avec [OpenFaaS](https://www.openfaas.com/) et une base de données **PostgreSQL** sur **Kubernetes**. Il simule un système sécurisé de gestion d'utilisateurs.
@@ -74,3 +75,7 @@ curl -X POST http://127.0.0.1:8080/function/verify-2fa -H "Content-Type: applica
 🧑‍💻 Auteur
 Projet réalisé dans le cadre du MSPR2 à l’EPSI Toulouse
 © 2025 - Ryad D.
+=======
+# mspr2-openfaas
+Application serverless
+>>>>>>> 37251e12932f196901b83a7d6a437bb4fb5c92ea
