@@ -2,65 +2,96 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Frontend OpenFaaS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COFRAP - Portail Utilisateur</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header class="bg-light py-3 mb-4 border-bottom shadow-sm">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center">
+      <span class="fs-4 fw-bold">COFRAP</span>
+      <h1 class="h4 mb-0">Portail de gestion des comptes utilisateurs</h1>
+    </div>
+  </header>
 
-  <h1>🔐 Portail Utilisateur – MSPR2</h1>
+  <main class="container">
+    <!-- Bloc À propos -->
+    <section class="mb-5">
+      <h2 class="h5 fw-bold">À propos</h2>
+      <p>Ce portail utilisateur est une démonstration du système de création et de gestion sécurisée de comptes utilisateurs pour la solution Cloud de la COFRAP. Il permet :</p>
+      <ul>
+        <li>Création de comptes avec mot de passe sécurisé</li>
+        <li>Génération de mot de passe fort + QRCode</li>
+        <li>Génération de secret TOTP pour double authentification</li>
+        <li>Authentification avec mot de passe et TOTP</li>
+        <li>Renouvellement du mot de passe et secret expiré</li>
+      </ul>
+    </section>
 
-  <section>
-    <h2>Créer un compte</h2>
-    <form id="register-form">
-      <input type="text" id="reg-username" placeholder="Nom d'utilisateur" required>
-      <input type="password" id="reg-password" placeholder="Mot de passe" required>
-      <button type="submit">Créer</button>
-    </form>
-  </section>
+    <!-- Formulaires -->
+    <div class="row g-4">
+      <!-- Création de compte -->
+      <div class="col-md-6">
+        <h3 class="h6">✅ Créer un compte</h3>
+        <form id="register-form">
+          <input class="form-control mb-2" type="text" id="reg-username" placeholder="Nom d'utilisateur" required>
+          <input class="form-control mb-2" type="password" id="reg-password" placeholder="Mot de passe" required>
+          <button class="btn btn-primary w-100" type="submit">Créer le compte</button>
+        </form>
+      </div>
 
-  <section>
-    <h2>Connexion</h2>
-    <form id="login-form">
-      <input type="text" id="login-username" placeholder="Nom d'utilisateur" required>
-      <input type="password" id="login-password" placeholder="Mot de passe" required>
-      <button type="submit">Se connecter</button>
-    </form>
-  </section>
+      <!-- Connexion -->
+      <div class="col-md-6">
+        <h3 class="h6">🔐 Connexion</h3>
+        <form id="login-form">
+          <input class="form-control mb-2" type="text" id="login-username" placeholder="Nom d'utilisateur" required>
+          <input class="form-control mb-2" type="password" id="login-password" placeholder="Mot de passe" required>
+          <button class="btn btn-success w-100" type="submit">Se connecter</button>
+        </form>
+      </div>
 
-  <section>
-    <h2>Générer secret TOTP</h2>
-    <form id="totp-form">
-      <input type="text" id="totp-username" placeholder="Nom d'utilisateur" required>
-      <button type="submit">Générer</button>
-    </form>
-  </section>
+      <!-- Génération TOTP -->
+      <div class="col-md-6">
+        <h3 class="h6">🔹 Générer un secret TOTP</h3>
+        <form id="totp-form">
+          <input class="form-control mb-2" type="text" id="totp-username" placeholder="Nom d'utilisateur" required>
+          <button class="btn btn-warning w-100" type="submit">Générer le secret</button>
+        </form>
+      </div>
 
-  <section>
-    <h2>Vérifier code TOTP</h2>
-    <form id="verify-form">
-      <input type="text" id="verify-username" placeholder="Nom d'utilisateur" required>
-      <input type="text" id="verify-code" placeholder="Code TOTP" required>
-      <button type="submit">Vérifier</button>
-    </form>
-  </section>
+      <!-- Vérifier TOTP -->
+      <div class="col-md-6">
+        <h3 class="h6">🔹 Vérifier TOTP</h3>
+        <form id="verify-form">
+          <input class="form-control mb-2" type="text" id="verify-username" placeholder="Nom d'utilisateur" required>
+          <input class="form-control mb-2" type="text" id="verify-code" placeholder="Code TOTP" required>
+          <button class="btn btn-info w-100" type="submit">Vérifier le code</button>
+        </form>
+      </div>
 
-  <section>
-    <h2>Renouveler mot de passe ou secret</h2>
-    <form id="renew-form">
-      <input type="text" id="renew-username" placeholder="Nom d'utilisateur" required>
-      <button type="submit">Renouveler</button>
-    </form>
-  </section>
+      <!-- Renouvellement -->
+      <div class="col-md-6">
+        <h3 class="h6">♻️ Renouveler les identifiants</h3>
+        <form id="renew-form">
+          <input class="form-control mb-2" type="text" id="renew-username" placeholder="Nom d'utilisateur" required>
+          <button class="btn btn-dark w-100" type="submit">Renouveler</button>
+        </form>
+      </div>
+    </div>
 
-  <section>
-    <h3>🧾 Réponse :</h3>
-    <pre id="response"></pre>
-  </section>
+    <!-- Bloc Réponse -->
+    <section class="mt-5">
+      <h4 class="h6">📄 Réponse :</h4>
+      <pre id="response" class="bg-dark text-white p-3 rounded"></pre>
+    </section>
+  </main>
+
+  <footer class="bg-light mt-5 py-3 border-top text-center">
+    <small class="text-muted">Ahmed BOUZIDIA, Kenza MERZOUR, Mohamed DAOUD – EPSI 2025</small>
+  </footer>
 
   <script src="config.js"></script>
-  <script src="register.js"></script>
-  <script src="login.js"></script>
-  <script src="totp.js"></script>
-  <script src="renew.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

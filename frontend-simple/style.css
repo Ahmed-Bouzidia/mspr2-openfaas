@@ -1,98 +1,68 @@
-/* style.css */
-/* 🌟 Style professionnel et moderne pour l'interface de test OpenFaaS */
-
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #f0f4f7, #d9e2ec);
   margin: 0;
-  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #e0eafc, #cfdef3);
   color: #333;
 }
 
-h1, h2, h3 {
-  color: #1a202c;
+header {
+  text-align: center;
+  padding: 30px 20px 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 2rem;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+.logo {
+  width: 60px;
+  height: auto;
 }
 
-form {
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  border: 1px solid #e2e8f0;
+h1 {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.highlight {
+  color: #005fa3;
+}
+
+.team {
+  font-size: 14px;
+  color: #777;
+}
+
+main {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #ffffffdd;
   border-radius: 10px;
-  background: #f7fafc;
+  box-shadow: 0 0 10px rgba(0,0,0,0.08);
 }
 
-input[type="text"],
-input[type="password"] {
-  display: block;
-  width: 100%;
-  padding: 0.8rem;
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-  border: 1px solid #cbd5e0;
-  border-radius: 6px;
-  box-sizing: border-box;
-  font-size: 1rem;
-  transition: border 0.3s;
+.about h2 {
+  color: #111;
+  font-size: 20px;
 }
 
-input:focus {
-  border-color: #3182ce;
-  outline: none;
+.about ul {
+  padding-left: 20px;
 }
 
-button {
-  padding: 0.8rem 1.2rem;
-  font-size: 1rem;
-  background-color: #3182ce;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+.about li {
+  margin: 5px 0;
+  list-style: none;
 }
 
-button:hover {
-  background-color: #2b6cb0;
+.response-block {
+  margin-top: 40px;
 }
 
 .response {
-  white-space: pre-wrap;
-  background: #1a202c;
-  color: #f0fff4;
-  padding: 1rem;
-  border-radius: 6px;
+  background-color: #1e1e2f;
+  color: #f0f0f0;
+  padding: 15px;
+  border-radius: 5px;
   font-family: monospace;
-  margin-top: 1rem;
-  max-height: 300px;
-  overflow-y: auto;
-  box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.1);
-}
-
-label {
-  font-weight: bold;
-  margin-top: 1rem;
-  display: block;
-  color: #2d3748;
-}
-
-hr {
-  margin: 2rem 0;
-  border: none;
-  border-top: 1px solid #e2e8f0;
-}
-
-footer {
-  text-align: center;
-  font-size: 0.9rem;
-  margin-top: 3rem;
-  color: #718096;
+  white-space: pre-wrap;
 }
