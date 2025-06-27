@@ -1,0 +1,68 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #e0eafc, #cfdef3);
+  color: #333;
+}
+
+header {
+  text-align: center;
+  padding: 30px 20px 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo {
+  width: 60px;
+  height: auto;
+}
+
+h1 {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.highlight {
+  color: #005fa3;
+}
+
+.team {
+  font-size: 14px;
+  color: #777;
+}
+
+main {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #ffffffdd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.08);
+}
+
+.about h2 {
+  color: #111;
+  font-size: 20px;
+}
+
+.about ul {
+  padding-left: 20px;
+}
+
+.about li {
+  margin: 5px 0;
+  list-style: none;
+}
+
+.response-block {
+  margin-top: 40px;
+}
+
+.response {
+  background-color: #1e1e2f;
+  color: #f0f0f0;
+  padding: 15px;
+  border-radius: 5px;
+  font-family: monospace;
+  white-space: pre-wrap;
+}
